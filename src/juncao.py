@@ -48,7 +48,6 @@ def realizar_juncao_datasets():
     logging.info("Preparando particionamento dos dados...")
     df_merged['ano_mes'] = df_merged['din_instante'].dt.strftime('%Y-%m')
     
-    # GARANTIA DE IDEMPOTÊNCIA (Limpar antes de salvar partições)
     caminho_saida = pasta_processada / "dataset_analitico_cdv"
     
     if caminho_saida.exists():
@@ -61,7 +60,7 @@ def realizar_juncao_datasets():
         index=False,
         partition_cols=['projeto', 'ano_mes']
     )
-    logging.info("Sucesso! Merge Finalizado.")
+    logging.info("Merge Finalizado.")
 
 if __name__ == "__main__":
     realizar_juncao_datasets()

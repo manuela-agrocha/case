@@ -56,7 +56,6 @@ def qualidade_de_dados(df: pd.DataFrame, tipo_dataset: str) -> tuple[pd.DataFram
                  f"{linhas_removidas_vento} ventos inválidos descartados -> "
                  f"{len(df_limpo)} linhas limpas finais.\n")
     
-    # Calcula os nulos
     percentual_nulos = (df.isnull().sum() / len(df)) * 100
     nulos_formatados = percentual_nulos[percentual_nulos > 0].round(2)
     
@@ -85,4 +84,4 @@ if __name__ == "__main__":
     df_usinas_limpo.to_parquet(pasta_processada / "usinas_consolidado.parquet", index=False)
     df_detalhe_limpo.to_parquet(pasta_processada / "detalhamento_consolidado.parquet", index=False)
     
-    logging.info("Tudo pronto! Arquivos Parquet salvos com sucesso na pasta 'data/processed'!")
+    logging.info("Arquivos Parquet salvos com sucesso na pasta 'data/processed'.")

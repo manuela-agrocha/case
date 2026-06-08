@@ -44,7 +44,7 @@ def _download_file(url: str, save_path: Path, max_retries: int = 3):
     for attempt in range(1, max_retries + 1):
         try:
             response = requests.get(url, stream=True, timeout=15)
-            response.raise_for_status() # Verifica erros 404, 500, etc.
+            response.raise_for_status()
             
             with open(save_path, 'wb') as f:
                 for chunk in response.iter_content(chunk_size=8192):
@@ -55,16 +55,15 @@ def _download_file(url: str, save_path: Path, max_retries: int = 3):
         except requests.exceptions.HTTPError as e:
             if response.status_code == 404:
                 logging.error(f"Fallback: Mês indisponível no ONS (404) - {url}")
-                return False # Sai do loop se o erro for 404 (o arquivo não existe lá)
+                return False
             logging.warning(f"Erro HTTP {response.status_code}. Tentativa {attempt}/{max_retries}...")
         except requests.exceptions.RequestException as e:
             logging.warning(f"Falha de conexão. Tentativa {attempt}/{max_retries} - Erro: {e}")
         
-        time.sleep(2 ** attempt) # Exponential backoff (espera 2s, 4s, 8s...)
+        time.sleep(2 ** attempt)
         
     logging.error(f"Falha definitiva ao baixar {save_path.name} após {max_retries} tentativas.")
     return False
 
 if __name__ == "__main__":
-    # Conforme solicitado no case: 6 meses recentes (Outubro/2025 a Março/2026)
     download_ons_coff_data(start_date="2025-10-01", end_date="2026-03-01")

@@ -27,7 +27,7 @@ def executar_validacoes(threshold_completude: float = 95.0):
         if col not in fato_geracao.columns: # <-- CORRIGIDO AQUI
             logger.error(f"Schema Error: Coluna '{col}' ausente em fato_geracao_spe.")
         # Se quiséssemos ser super rigorosos, checaríamos os tipos exatos aqui.
-    logger.info("✔️ Schema validado com sucesso.")
+    logger.info("Schema validado com sucesso.")
 
     # 2. FRESHNESS CHECK
     logger.info("[2/4] Validando Freshness (Recência dos dados)...")

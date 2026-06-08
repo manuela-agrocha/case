@@ -36,7 +36,6 @@ def construir_modelo_dimensional():
     dim_spe = df_base[cols_spe].drop_duplicates().reset_index(drop=True)
     dim_spe['id_spe'] = dim_spe.index + 1
     
-    # Criar a ligação Snowflake
     mapa_conjunto = dim_conjunto.set_index('nom_conjuntousina')['id_conjunto']
     dim_spe['fk_conjunto'] = dim_spe['nom_conjuntousina'].map(mapa_conjunto)
     dim_spe = dim_spe.drop(columns=['nom_conjuntousina']) # Removemos o texto para normalizar
