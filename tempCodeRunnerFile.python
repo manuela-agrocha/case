@@ -1,0 +1,13 @@
+import pandas as pd
+from pathlib import Path
+
+pasta_projeto = Path(__file__).parent
+df_final = pd.read_parquet(pasta_projeto / "data/processed/detalhamento_cdv_final.parquet")
+
+amostra = df_final[['nom_conjuntousina', 'ceg', 'projeto']].drop_duplicates()
+
+print("\n--- AMOSTRA DO DE-PARA (SPE -> PROJETO) ---")
+print(amostra.head(15).to_string(index=False))
+
+print("\n--- CONTAGEM DE LINHAS POR PROJETO ---")
+print(df_final['projeto'].value_counts())

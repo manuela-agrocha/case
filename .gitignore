@@ -1,0 +1,5 @@
+# Ignorar pastas de dados e ambientes virtuais
+data/
+venv/
+__pycache__/
+.env
